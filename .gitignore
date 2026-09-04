@@ -5,3 +5,6 @@ __pycache__/
 
 # macOS
 .DS_Store
+
+# Personal Files
+normal_dataloading.py
