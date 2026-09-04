@@ -1,0 +1,3305 @@
+{
+  "inputs": {
+    "messages": [
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": "Hallo und willkommen bei Surfers Pottery. Mein Name ist Klara, ich bin die digitale Assistenz. Wie kann ich Ihnen helfen?",
+          "tool_calls": [],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "id": "10c9fd01-63b6-4709-8710-b853d04e4470"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "HumanMessage"
+        ],
+        "kwargs": {
+          "content": "Hallooo, ich hätte eine Frage: Ist eure Tonsorte Reflet eigentlich für draußen geeignet für Pflanztöpfe?",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "id": "feb5ba03-5340-4898-969d-bd63d9b02de9"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": "[warmly] Ich kläre kurz die Eignung für draußen.",
+          "tool_calls": [
+            {
+              "name": "load_skill",
+              "args": {
+                "interim": "[quickly] Ich kläre kurz die Materialeignung für Sie.",
+                "skillId": "knowledge-base"
+              },
+              "id": "call_ODFsoF6ncJjU8V9Nv2waOUNz",
+              "type": "tool_call"
+            }
+          ],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {
+            "__openai_function_call_ids__": {
+              "call_ODFsoF6ncJjU8V9Nv2waOUNz": "fc_0ea2aa6207e49c18006a99635ef9288194a58cccc9d5a03d12"
+            }
+          },
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_0ea2aa6207e49c18006a99635e4c6c8194ab552a71ab4c3af3",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437342,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437343,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 296,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "fc_0ea2aa6207e49c18006a99635ef9288194a58cccc9d5a03d12",
+                "type": "function_call",
+                "status": "completed",
+                "arguments": "{\"interim\":\"[quickly] Ich kläre kurz die Materialeignung für Sie.\",\"skillId\":\"knowledge-base\"}",
+                "call_id": "call_ODFsoF6ncJjU8V9Nv2waOUNz",
+                "name": "load_skill"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [
+              {
+                "type": "function",
+                "description": "Load the full instructions and tools for a skill.",
+                "name": "load_skill",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "skillId": {
+                      "type": "string",
+                      "enum": [
+                        "knowledge-base",
+                        "callback",
+                        "forwarding",
+                        "calendar"
+                      ],
+                      "description": "ID of the skill to load."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "skillId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "End the conversation with the user.",
+                "name": "end_conversation",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 2491,
+              "input_tokens_details": {
+                "cache_write_tokens": 2488,
+                "cached_tokens": 0
+              },
+              "output_tokens": 39,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 2530
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 2491,
+            "output_tokens": 39,
+            "total_tokens": 2530,
+            "input_token_details": {
+              "cache_read": 0
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "7a8b5dcb-b367-41e0-a6b5-96d1582cd3f9"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "status": "success",
+          "name": "load_skill",
+          "content": "You have loaded the skill \"Knowledge Base\" (knowledge-base). Follow these instructions:\n\n# Knowledge Base Skill\n\nYou are a knowledge base skill in a phone assistant graph.\n\nYour job is to answer caller questions only from available FAQ entries and indexed documents.\n\n## Available Tools\n\nSearch tools are injected per session and their full names include an environment-specific MCP prefix.\n\n- A tool whose name ends with `faq_search` searches configured FAQ entries.\n- A tool whose name ends with `search_documents` searches configured indexed documents.\n\nOnly use search tools that are actually available in the current session. Do not assume that both tools exist.\n\n## Tool Usage Rules\n\n### FAQ Search\n\nUse the available tool whose name ends with `faq_search` for:\n\n- Clear questions that likely match configured FAQ entries.\n\n### Document Search\n\nUse the available tool whose name ends with `search_documents` for:\n\n- Open knowledge questions.\n- Document-specific details.\n\n### Combined Search\n\n- Use both tools when both are available and both sources may be relevant.\n- Do not attempt to call a tool that is not available in the current session.\n\n---\n\n## Answering Rules\n\n- Base the answer only on tool results or the business context.\n- If no search tool is available, or the available tools do not provide enough information, say that the information is not available.\n- Do not perform external actions.\n- Do not schedule or manage appointments.\n- Do not recommend other communication channels.\n- Do not ask a question in every turn.\n- If a follow-up question is useful, keep it broad and simple.\n\n---\n\n## Completion Rules\n\n### Answer Available\n\nWhen the answer is ready:\n\n- Call `finish_skill`.\n\n### Information Unavailable\n\nWhen no suitable search tool is available or the tools do not provide enough information:\n\n- Briefly state that the information is not available.\n- Call `finish_skill`.\n\n### Different Skill Required\n\nIf another skill should handle the request:\n\n- Call `finish_skill`.\n- Set `nextSkill` to the appropriate target skill.\n\nThe following tools are now available: mcp__knowledge_bas_593108__faq_search, mcp__knowledge_bas_593108__search_documents.",
+          "tool_call_id": "call_ODFsoF6ncJjU8V9Nv2waOUNz",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "id": "614328e6-7bb2-4449-88d1-af911f365e7d"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": [],
+          "tool_calls": [
+            {
+              "name": "mcp__knowledge_bas_593108__faq_search",
+              "args": {},
+              "id": "call_DoUZwOPD6LqlZnU6IFHHiuik",
+              "type": "tool_call"
+            },
+            {
+              "name": "mcp__knowledge_bas_593108__search_documents",
+              "args": {},
+              "id": "call_F9IwOmk3iFQJkbkrpdlRG0N7",
+              "type": "tool_call"
+            }
+          ],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {
+            "__openai_function_call_ids__": {
+              "call_DoUZwOPD6LqlZnU6IFHHiuik": "fc_0ea2aa6207e49c18006a9963617b488194826c38f114efb17a",
+              "call_F9IwOmk3iFQJkbkrpdlRG0N7": "fc_0ea2aa6207e49c18006a9963617b5c81949caf8659009f3d91"
+            }
+          },
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_0ea2aa6207e49c18006a99635f8d808194b4b3b2560b0f89aa",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437343,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437345,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 2580,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "fc_0ea2aa6207e49c18006a9963617b488194826c38f114efb17a",
+                "type": "function_call",
+                "status": "completed",
+                "arguments": "{\"speech\":{\"interim\":\"[quickly] Ich prüfe die Angaben zur Tonsorte.\",\"query\":\"Ist die Tonsorte Reflet für draußen geeignet, insbesondere für Pflanztöpfe?\"}}",
+                "call_id": "call_DoUZwOPD6LqlZnU6IFHHiuik",
+                "name": "mcp__knowledge_bas_593108__faq_search"
+              },
+              {
+                "id": "fc_0ea2aa6207e49c18006a9963617b5c81949caf8659009f3d91",
+                "type": "function_call",
+                "status": "completed",
+                "arguments": "{\"speech\":{\"interim\":\"[quickly] Ich gleiche das mit den Materialhinweisen ab.\",\"query\":\"Tonsorte Reflet Außenbereich Pflanztöpfe frostfest\"} }",
+                "call_id": "call_F9IwOmk3iFQJkbkrpdlRG0N7",
+                "name": "mcp__knowledge_bas_593108__search_documents"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [
+              {
+                "type": "function",
+                "description": "Load the full instructions and tools for a skill.",
+                "name": "load_skill",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "skillId": {
+                      "type": "string",
+                      "enum": [
+                        "callback",
+                        "forwarding",
+                        "calendar"
+                      ],
+                      "description": "ID of the skill to load."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "skillId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "End the conversation with the user.",
+                "name": "end_conversation",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search trusted FAQ entries for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__faq_search",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search untrusted knowledge base document excerpts for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__search_documents",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 3712,
+              "input_tokens_details": {
+                "cache_write_tokens": 3709,
+                "cached_tokens": 0
+              },
+              "output_tokens": 135,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 3847
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 3712,
+            "output_tokens": 135,
+            "total_tokens": 3847,
+            "input_token_details": {
+              "cache_read": 0
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "a3a579d6-4f00-4732-a7bf-7b2f78b059a5"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "status": "error",
+          "content": "Error: The tool rejected the input. Ask the caller for clarification or correction. Do not mention technical details.",
+          "name": "mcp__knowledge_bas_593108__faq_search",
+          "tool_call_id": "call_DoUZwOPD6LqlZnU6IFHHiuik",
+          "response_metadata": {
+            "toolError": {
+              "category": "invalid_input",
+              "llmMessage": "Error: The tool rejected the input. Ask the caller for clarification or correction. Do not mention technical details.",
+              "rawMessage": "Received tool input did not match expected schema"
+            }
+          },
+          "additional_kwargs": {},
+          "id": "113705f2-3812-4bac-8d3a-96d17c0f46b2"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "status": "error",
+          "content": "Error: The tool rejected the input. Ask the caller for clarification or correction. Do not mention technical details.",
+          "name": "mcp__knowledge_bas_593108__search_documents",
+          "tool_call_id": "call_F9IwOmk3iFQJkbkrpdlRG0N7",
+          "response_metadata": {
+            "toolError": {
+              "category": "invalid_input",
+              "llmMessage": "Error: The tool rejected the input. Ask the caller for clarification or correction. Do not mention technical details.",
+              "rawMessage": "Received tool input did not match expected schema"
+            }
+          },
+          "additional_kwargs": {},
+          "id": "009aaeb8-2e36-49bf-b95e-5ef2b802f7c4"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": [
+            {
+              "type": "text",
+              "text": "[understanding] Das kann ich Ihnen leider nicht verlässlich bestätigen. Für Pflanztöpfe draußen sind vor allem Frostfestigkeit, Wasseraufnahme und ein passender Brand entscheidend – der Ton ist da kein kleines Detail, sondern der Türsteher. [short pause] Möchten Sie, dass ich Ihre Frage für eine Rückmeldung aufnehme?",
+              "index": 0
+            }
+          ],
+          "tool_calls": [],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {},
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_0ea2aa6207e49c18006a996361b72c8194a89f7405fe4bfc8a",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437345,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437347,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 2880,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "msg_0ea2aa6207e49c18006a99636238c48194a81c255c00157078",
+                "type": "message",
+                "status": "completed",
+                "content": [
+                  {
+                    "type": "output_text",
+                    "annotations": [],
+                    "logprobs": [],
+                    "text": "[understanding] Das kann ich Ihnen leider nicht verlässlich bestätigen. Für Pflanztöpfe draußen sind vor allem Frostfestigkeit, Wasseraufnahme und ein passender Brand entscheidend – der Ton ist da kein kleines Detail, sondern der Türsteher. [short pause] Möchten Sie, dass ich Ihre Frage für eine Rückmeldung aufnehme?"
+                  }
+                ],
+                "phase": "final_answer",
+                "role": "assistant"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [
+              {
+                "type": "function",
+                "description": "Load the full instructions and tools for a skill.",
+                "name": "load_skill",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "skillId": {
+                      "type": "string",
+                      "enum": [
+                        "callback",
+                        "forwarding",
+                        "calendar"
+                      ],
+                      "description": "ID of the skill to load."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "skillId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "End the conversation with the user.",
+                "name": "end_conversation",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search trusted FAQ entries for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__faq_search",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search untrusted knowledge base document excerpts for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__search_documents",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 3958,
+              "input_tokens_details": {
+                "cache_write_tokens": 3955,
+                "cached_tokens": 0
+              },
+              "output_tokens": 76,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 4034
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 3958,
+            "output_tokens": 76,
+            "total_tokens": 4034,
+            "input_token_details": {
+              "cache_read": 0
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "2c35f716-2d6e-4178-b795-e1e0e50237ab"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "HumanMessage"
+        ],
+        "kwargs": {
+          "content": "Nein, also wenn es, wenn es nicht so wichtig, dann ist es halt egal. Ähm, ich hätte dann zweite Frage: Vielleicht durch einen T",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "id": "767ce19e-a2ab-4126-8755-150808fc1614"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": [],
+          "tool_calls": [
+            {
+              "name": "load_skill",
+              "args": {
+                "interim": "[quickly] Ich höre mir die zweite Frage gern an.",
+                "skillId": "callback"
+              },
+              "id": "call_aXijr8JNPoxFhEbbxx4RSQjN",
+              "type": "tool_call"
+            }
+          ],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {
+            "__openai_function_call_ids__": {
+              "call_aXijr8JNPoxFhEbbxx4RSQjN": "fc_0ea2aa6207e49c18006a996382d93c8194ab9a6913c68092a3"
+            }
+          },
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_0ea2aa6207e49c18006a99638209848194bf7aaa841bdc2b65",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437378,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437379,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 3396,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "fc_0ea2aa6207e49c18006a996382d93c8194ab9a6913c68092a3",
+                "type": "function_call",
+                "status": "completed",
+                "arguments": "{\"interim\":\"[quickly] Ich höre mir die zweite Frage gern an.\",\"skillId\":\"callback\"}",
+                "call_id": "call_aXijr8JNPoxFhEbbxx4RSQjN",
+                "name": "load_skill"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [
+              {
+                "type": "function",
+                "description": "Load the full instructions and tools for a skill.",
+                "name": "load_skill",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "skillId": {
+                      "type": "string",
+                      "enum": [
+                        "callback",
+                        "forwarding",
+                        "calendar"
+                      ],
+                      "description": "ID of the skill to load."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "skillId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "End the conversation with the user.",
+                "name": "end_conversation",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search trusted FAQ entries for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__faq_search",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search untrusted knowledge base document excerpts for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__search_documents",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 4041,
+              "input_tokens_details": {
+                "cache_write_tokens": 329,
+                "cached_tokens": 3709
+              },
+              "output_tokens": 36,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 4077
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 4041,
+            "output_tokens": 36,
+            "total_tokens": 4077,
+            "input_token_details": {
+              "cache_read": 3709
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "b8fa5930-da1b-4636-b402-76e73cc4f9aa"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "status": "success",
+          "name": "load_skill",
+          "content": "You have loaded the skill \"Callback\" (callback). Follow these instructions:\n\n# Playbook skill\n\nYou are a playbook skill in a phone assistant graph.\n\nYour job is to collect the information required by the active playbook and\nthen complete the configured action.\n\n## Runtime configuration\n\n### Available topics\n\n```yaml\n- id: d40d4888-0f23-43f7-ba4c-664133decb42\n  title: Supportanfrage\n  description: Wenn ein Anrufender einen Defekt oder ein Problem mit der Dienstleistung oder Ware meldet\n- id: 6d3f1af2-a0b1-4570-b6d3-4df28e6abfdb\n  title: Telefonische Bestellung\n  description: Wenn die anrufende Person Produkte oder einer Leistung telefonische bestellen möchte.\n```\n\n### Completion action\n\n```yaml\ntype: end_conversation\ninstruction: Promise that the business will call the caller back, then end the conversation naturally.\n```\n\n## General rules\n\n- Stay inside the playbook task.\n- Do not recommend other communication channels.\n- Do not schedule appointments.\n\n## Topic and playbook rules\n\n- The latest `playbook_topic_selected` tool result is the active playbook.\n- If `topics` contains entries and no topic has been selected yet, call `select_playbook_topic` before asking topic-specific questions.\n- Use `mode: \"initial_selection\"` for the first topic selection.\n- If the caller changes topic later, call `select_playbook_topic` again with `mode: \"topic_switch\"` and a short reason.\n- There is no progress tool. Infer progress from the conversation and tool results.\n\n## Task collection rules\n\n- Each playbook task describes one detail or action to complete.\n- Collect required details one at a time.\n- If a detail is already known, use it and move on.\n- For email addresses, resolve obvious acoustic ambiguity when the caller's name or a common domain makes the correction clear.\n- Repeat the full email address for verification when needed.\n- Keep any summary focused on details that matter for the completion action.\n\nThe following tools are now available: select_playbook_topic, end_conversation.",
+          "tool_call_id": "call_aXijr8JNPoxFhEbbxx4RSQjN",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "id": "3f634f9c-60be-452a-8dcb-0f80217be78f"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": [],
+          "tool_calls": [
+            {
+              "name": "select_playbook_topic",
+              "args": {},
+              "id": "call_2UMHzazZw56uPF6vQ2GyZMry",
+              "type": "tool_call"
+            }
+          ],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {
+            "__openai_function_call_ids__": {
+              "call_2UMHzazZw56uPF6vQ2GyZMry": "fc_0ea2aa6207e49c18006a9963841aec8194bc51b92fd111d436"
+            }
+          },
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_0ea2aa6207e49c18006a9963835b70819498608af8edff7295",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437379,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437380,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 5496,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "fc_0ea2aa6207e49c18006a9963841aec8194bc51b92fd111d436",
+                "type": "function_call",
+                "status": "completed",
+                "arguments": "{\"speech\":{\"interim\":\"[quickly] Ich ordne Ihre zweite Frage kurz ein.\",\"topicId\":\"d40d4888-0f23-43f7-ba4c-664133decb42\",\"mode\":\"initial_selection\",\"reason\":\"Die Person kündigt eine weitere Frage an, die möglicherweise ein Anliegen oder Problem betrifft.\"}}",
+                "call_id": "call_2UMHzazZw56uPF6vQ2GyZMry",
+                "name": "select_playbook_topic"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [
+              {
+                "type": "function",
+                "description": "Load the full instructions and tools for a skill.",
+                "name": "load_skill",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "skillId": {
+                      "type": "string",
+                      "enum": [
+                        "forwarding",
+                        "calendar"
+                      ],
+                      "description": "ID of the skill to load."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "skillId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "End the conversation with the user.",
+                "name": "end_conversation",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search trusted FAQ entries for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__faq_search",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search untrusted knowledge base document excerpts for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__search_documents",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Select the active playbook topic and load its playbook tasks.",
+                "name": "select_playbook_topic",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "topicId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Stable ID of the selected topic."
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "initial_selection",
+                        "topic_switch"
+                      ],
+                      "description": "Whether this is the first topic selection of the conversation (initial_selection) or a change away from a previously selected topic (topic_switch)."
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Reason for the topic selection."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "topicId",
+                    "mode",
+                    "reason"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 4905,
+              "input_tokens_details": {
+                "cache_write_tokens": 4902,
+                "cached_tokens": 0
+              },
+              "output_tokens": 85,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 4990
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 4905,
+            "output_tokens": 85,
+            "total_tokens": 4990,
+            "input_token_details": {
+              "cache_read": 0
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "8c2021a8-d868-45ee-bb34-65e505591629"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "status": "error",
+          "content": "Error: The tool rejected the input. Ask the caller for clarification or correction. Do not mention technical details.",
+          "name": "select_playbook_topic",
+          "tool_call_id": "call_2UMHzazZw56uPF6vQ2GyZMry",
+          "response_metadata": {
+            "toolError": {
+              "category": "invalid_input",
+              "llmMessage": "Error: The tool rejected the input. Ask the caller for clarification or correction. Do not mention technical details.",
+              "rawMessage": "Received tool input did not match expected schema ✖ Invalid input: expected string, received undefined → at topicId ✖ Invalid option: expected one of \"initial_selection\"|\"topic_switch\" → at mode ✖ Invalid input: expected string, received undefined → at reason"
+            }
+          },
+          "additional_kwargs": {},
+          "id": "a503be0b-f43c-48e5-9e6c-754065fd9a7e"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": [
+            {
+              "type": "text",
+              "text": "[questioning] Kein Problem, die erste Frage parken wir elegant im Blumentopf. [short pause] Sie wollten noch etwas zu einem Töpferkurs fragen – worum geht es genau?",
+              "index": 0
+            }
+          ],
+          "tool_calls": [],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {},
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_0ea2aa6207e49c18006a996384e780819481455072a692a0cd",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437380,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437381,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 5646,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "msg_0ea2aa6207e49c18006a9963856df08194894bb7887df49ad4",
+                "type": "message",
+                "status": "completed",
+                "content": [
+                  {
+                    "type": "output_text",
+                    "annotations": [],
+                    "logprobs": [],
+                    "text": "[questioning] Kein Problem, die erste Frage parken wir elegant im Blumentopf. [short pause] Sie wollten noch etwas zu einem Töpferkurs fragen – worum geht es genau?"
+                  }
+                ],
+                "phase": "final_answer",
+                "role": "assistant"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [
+              {
+                "type": "function",
+                "description": "Load the full instructions and tools for a skill.",
+                "name": "load_skill",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "skillId": {
+                      "type": "string",
+                      "enum": [
+                        "forwarding",
+                        "calendar"
+                      ],
+                      "description": "ID of the skill to load."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "skillId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "End the conversation with the user.",
+                "name": "end_conversation",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search trusted FAQ entries for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__faq_search",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search untrusted knowledge base document excerpts for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__search_documents",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Select the active playbook topic and load its playbook tasks.",
+                "name": "select_playbook_topic",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "topicId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Stable ID of the selected topic."
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "initial_selection",
+                        "topic_switch"
+                      ],
+                      "description": "Whether this is the first topic selection of the conversation (initial_selection) or a change away from a previously selected topic (topic_switch)."
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Reason for the topic selection."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "topicId",
+                    "mode",
+                    "reason"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 5055,
+              "input_tokens_details": {
+                "cache_write_tokens": 5052,
+                "cached_tokens": 0
+              },
+              "output_tokens": 45,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 5100
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 5055,
+            "output_tokens": 45,
+            "total_tokens": 5100,
+            "input_token_details": {
+              "cache_read": 0
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "cdc99c24-5f3c-4a95-ae39-29d03fc8d70e"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "HumanMessage"
+        ],
+        "kwargs": {
+          "content": "Nein, ich wollte nicht über Töpfe kurz fragen. Ich wollte fragen, ob ich, äh, vielleicht größeren Auftrag machen kann, viele Töpfe bestellen.",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "id": "db5f1197-3971-405d-aca4-5231799057e2"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": [],
+          "tool_calls": [
+            {
+              "name": "select_playbook_topic",
+              "args": {},
+              "id": "call_ngYllIScKjxoJHzfKEWkHj8t",
+              "type": "tool_call"
+            }
+          ],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {
+            "__openai_function_call_ids__": {
+              "call_ngYllIScKjxoJHzfKEWkHj8t": "fc_0ea2aa6207e49c18006a9963a23a248194937ee63fad76a28b"
+            }
+          },
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_0ea2aa6207e49c18006a9963a16df8819492df4045b83e81f5",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437409,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437410,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 6022,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "fc_0ea2aa6207e49c18006a9963a23a248194937ee63fad76a28b",
+                "type": "function_call",
+                "status": "completed",
+                "arguments": "{\"speech\":{\"interim\":\"[quickly] Ich ordne Ihre größere Bestellung kurz ein.\",\"topicId\":\"6d3f1af2-a0b1-4570-b6d3-4df28e6abfdb\",\"mode\":\"initial_selection\",\"reason\":\"Die anrufende Person möchte viele Töpfe bestellen.\"}}",
+                "call_id": "call_ngYllIScKjxoJHzfKEWkHj8t",
+                "name": "select_playbook_topic"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [
+              {
+                "type": "function",
+                "description": "Load the full instructions and tools for a skill.",
+                "name": "load_skill",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "skillId": {
+                      "type": "string",
+                      "enum": [
+                        "forwarding",
+                        "calendar"
+                      ],
+                      "description": "ID of the skill to load."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "skillId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "End the conversation with the user.",
+                "name": "end_conversation",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search trusted FAQ entries for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__faq_search",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search untrusted knowledge base document excerpts for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__search_documents",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Select the active playbook topic and load its playbook tasks.",
+                "name": "select_playbook_topic",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "topicId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Stable ID of the selected topic."
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "initial_selection",
+                        "topic_switch"
+                      ],
+                      "description": "Whether this is the first topic selection of the conversation (initial_selection) or a change away from a previously selected topic (topic_switch)."
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Reason for the topic selection."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "topicId",
+                    "mode",
+                    "reason"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 5109,
+              "input_tokens_details": {
+                "cache_write_tokens": 204,
+                "cached_tokens": 4902
+              },
+              "output_tokens": 85,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 5194
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 5109,
+            "output_tokens": 85,
+            "total_tokens": 5194,
+            "input_token_details": {
+              "cache_read": 4902
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "18ea8a66-04ef-4d06-97fe-2066fcec4cea"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "status": "error",
+          "content": "Error: The tool rejected the input. Ask the caller for clarification or correction. Do not mention technical details.",
+          "name": "select_playbook_topic",
+          "tool_call_id": "call_ngYllIScKjxoJHzfKEWkHj8t",
+          "response_metadata": {
+            "toolError": {
+              "category": "invalid_input",
+              "llmMessage": "Error: The tool rejected the input. Ask the caller for clarification or correction. Do not mention technical details.",
+              "rawMessage": "Received tool input did not match expected schema ✖ Invalid input: expected string, received undefined → at topicId ✖ Invalid option: expected one of \"initial_selection\"|\"topic_switch\" → at mode ✖ Invalid input: expected string, received undefined → at reason"
+            }
+          },
+          "additional_kwargs": {},
+          "id": "ebacc8f2-c870-4640-8f43-9eda5b361d72"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": [
+            {
+              "type": "text",
+              "text": "[professional] Ah, jetzt sind wir bei einer größeren Bestellung – deutlich mehr Töpfe, deutlich weniger Zufall. [short pause] Wie viele Stück benötigen Sie ungefähr, und welche Art von Töpfen soll es sein?",
+              "index": 0
+            }
+          ],
+          "tool_calls": [],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {},
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_0ea2aa6207e49c18006a9963a30a748194841ed30da78e2e61",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437411,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437412,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 6172,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "msg_0ea2aa6207e49c18006a9963a393608194889fb6362e9dea8a",
+                "type": "message",
+                "status": "completed",
+                "content": [
+                  {
+                    "type": "output_text",
+                    "annotations": [],
+                    "logprobs": [],
+                    "text": "[professional] Ah, jetzt sind wir bei einer größeren Bestellung – deutlich mehr Töpfe, deutlich weniger Zufall. [short pause] Wie viele Stück benötigen Sie ungefähr, und welche Art von Töpfen soll es sein?"
+                  }
+                ],
+                "phase": "final_answer",
+                "role": "assistant"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [
+              {
+                "type": "function",
+                "description": "Load the full instructions and tools for a skill.",
+                "name": "load_skill",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "skillId": {
+                      "type": "string",
+                      "enum": [
+                        "forwarding",
+                        "calendar"
+                      ],
+                      "description": "ID of the skill to load."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "skillId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "End the conversation with the user.",
+                "name": "end_conversation",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search trusted FAQ entries for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__faq_search",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search untrusted knowledge base document excerpts for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__search_documents",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Select the active playbook topic and load its playbook tasks.",
+                "name": "select_playbook_topic",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "topicId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Stable ID of the selected topic."
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "initial_selection",
+                        "topic_switch"
+                      ],
+                      "description": "Whether this is the first topic selection of the conversation (initial_selection) or a change away from a previously selected topic (topic_switch)."
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Reason for the topic selection."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "topicId",
+                    "mode",
+                    "reason"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 5259,
+              "input_tokens_details": {
+                "cache_write_tokens": 204,
+                "cached_tokens": 5052
+              },
+              "output_tokens": 50,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 5309
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 5259,
+            "output_tokens": 50,
+            "total_tokens": 5309,
+            "input_token_details": {
+              "cache_read": 5052
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "84b3417c-3e6a-40cb-88ef-aa3132f58269"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "HumanMessage"
+        ],
+        "kwargs": {
+          "content": "Ähm, ich würde gerne, ähm, Pflanztöpfe bestellen und würde gerne die, äh, Preise kennen. Mmm, also das w-wäre ganz groß. Noch keine bestimmte Anzahl, aber bestimmt mehr als zehn.",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "id": "b2f1ceb1-24dc-4fe4-889d-8cacbbec6d0f"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": [
+            {
+              "type": "text",
+              "text": "[professional] Verstanden, Sie interessieren sich für größere Mengen an Pflanztöpfen und möchten zunächst die Preise erfahren. [short pause] Dafür nehme ich gern Ihren Namen auf und lasse die Anfrage weitergeben. Wie darf ich Sie nennen?",
+              "index": 0
+            }
+          ],
+          "tool_calls": [],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {},
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_0ea2aa6207e49c18006a9963c437648194819867a17620a56e",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437444,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437445,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 6626,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "msg_0ea2aa6207e49c18006a9963c4c4988194bd8344a0ca3a1313",
+                "type": "message",
+                "status": "completed",
+                "content": [
+                  {
+                    "type": "output_text",
+                    "annotations": [],
+                    "logprobs": [],
+                    "text": "[professional] Verstanden, Sie interessieren sich für größere Mengen an Pflanztöpfen und möchten zunächst die Preise erfahren. [short pause] Dafür nehme ich gern Ihren Namen auf und lasse die Anfrage weitergeben. Wie darf ich Sie nennen?"
+                  }
+                ],
+                "phase": "final_answer",
+                "role": "assistant"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [
+              {
+                "type": "function",
+                "description": "Load the full instructions and tools for a skill.",
+                "name": "load_skill",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "skillId": {
+                      "type": "string",
+                      "enum": [
+                        "forwarding",
+                        "calendar"
+                      ],
+                      "description": "ID of the skill to load."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "skillId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "End the conversation with the user.",
+                "name": "end_conversation",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search trusted FAQ entries for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__faq_search",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search untrusted knowledge base document excerpts for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__search_documents",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Select the active playbook topic and load its playbook tasks.",
+                "name": "select_playbook_topic",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "topicId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Stable ID of the selected topic."
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "initial_selection",
+                        "topic_switch"
+                      ],
+                      "description": "Whether this is the first topic selection of the conversation (initial_selection) or a change away from a previously selected topic (topic_switch)."
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Reason for the topic selection."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "topicId",
+                    "mode",
+                    "reason"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 5333,
+              "input_tokens_details": {
+                "cache_write_tokens": 224,
+                "cached_tokens": 5106
+              },
+              "output_tokens": 53,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 5386
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 5333,
+            "output_tokens": 53,
+            "total_tokens": 5386,
+            "input_token_details": {
+              "cache_read": 5106
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "eb868b19-d5ff-46c5-865d-7334fd9ff103"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "HumanMessage"
+        ],
+        "kwargs": {
+          "content": "Mein Name ist Sophie und ich interessiere mich, ähm, was ist der Preis für Pflanztopf, kleine und mittlere?",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "id": "26650110-5dfe-4ce9-a0af-88904e684d4b"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": [],
+          "tool_calls": [
+            {
+              "name": "end_conversation",
+              "args": {},
+              "id": "call_ksYtAxTt988kuf92UwDxObU9",
+              "type": "tool_call"
+            }
+          ],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {
+            "__openai_function_call_ids__": {
+              "call_ksYtAxTt988kuf92UwDxObU9": "fc_0ea2aa6207e49c18006a9963e0932c81949c6061651f92f90a"
+            }
+          },
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_0ea2aa6207e49c18006a9963dff52881948e242fa7ad7c79f6",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437472,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437472,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 7041,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "fc_0ea2aa6207e49c18006a9963e0932c81949c6061651f92f90a",
+                "type": "function_call",
+                "status": "completed",
+                "arguments": "{}",
+                "call_id": "call_ksYtAxTt988kuf92UwDxObU9",
+                "name": "end_conversation"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [
+              {
+                "type": "function",
+                "description": "Load the full instructions and tools for a skill.",
+                "name": "load_skill",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "skillId": {
+                      "type": "string",
+                      "enum": [
+                        "forwarding",
+                        "calendar"
+                      ],
+                      "description": "ID of the skill to load."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "skillId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "End the conversation with the user.",
+                "name": "end_conversation",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search trusted FAQ entries for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__faq_search",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Search untrusted knowledge base document excerpts for the current assistant.",
+                "name": "mcp__knowledge_bas_593108__search_documents",
+                "output_schema": null,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "query": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "query"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Select the active playbook topic and load its playbook tasks.",
+                "name": "select_playbook_topic",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "topicId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Stable ID of the selected topic."
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "initial_selection",
+                        "topic_switch"
+                      ],
+                      "description": "Whether this is the first topic selection of the conversation (initial_selection) or a change away from a previously selected topic (topic_switch)."
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Reason for the topic selection."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "topicId",
+                    "mode",
+                    "reason"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 5420,
+              "input_tokens_details": {
+                "cache_write_tokens": 87,
+                "cached_tokens": 5330
+              },
+              "output_tokens": 15,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 5435
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 5420,
+            "output_tokens": 15,
+            "total_tokens": 5435,
+            "input_token_details": {
+              "cache_read": 5330
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "9b5980cc-2f4e-45ca-87be-19af781b527b"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "status": "success",
+          "name": "end_conversation",
+          "content": "Playground conversation end simulated",
+          "tool_call_id": "call_ksYtAxTt988kuf92UwDxObU9",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "id": "27f76663-95ee-4f34-b8fc-3ae2810191cb"
+        }
+      }
+    ],
+    "interrupted": false,
+    "iterationCount": 1,
+    "loadedSkillIds": [
+      "knowledge-base",
+      "callback"
+    ],
+    "spokenSegments": [],
+    "externalToolNames": [],
+    "failureReason": null
+  },
+  "outputs": {
+    "messages": [
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": [
+            {
+              "type": "text",
+              "text": "[professional] Danke, Sophie. Die Preise für kleine und mittlere Pflanztöpfe kann ich Ihnen hier leider nicht verlässlich nennen. [short pause] Wir geben Ihre Anfrage zu den Mengenpreisen weiter und rufen Sie zurück – inklusive der Varianten klein und mittel.",
+              "index": 0
+            }
+          ],
+          "tool_calls": [],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {},
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_0ea2aa6207e49c18006a9963e0e8a08194b8a0f98e9663cf02",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437472,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437473,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 7855,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "msg_0ea2aa6207e49c18006a9963e167708194a8bcdf225a365280",
+                "type": "message",
+                "status": "completed",
+                "content": [
+                  {
+                    "type": "output_text",
+                    "annotations": [],
+                    "logprobs": [],
+                    "text": "[professional] Danke, Sophie. Die Preise für kleine und mittlere Pflanztöpfe kann ich Ihnen hier leider nicht verlässlich nennen. [short pause] Wir geben Ihre Anfrage zu den Mengenpreisen weiter und rufen Sie zurück – inklusive der Varianten klein und mittel."
+                  }
+                ],
+                "phase": "final_answer",
+                "role": "assistant"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 2826,
+              "input_tokens_details": {
+                "cache_write_tokens": 2823,
+                "cached_tokens": 0
+              },
+              "output_tokens": 60,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 2886
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 2826,
+            "output_tokens": 60,
+            "total_tokens": 2886,
+            "input_token_details": {
+              "cache_read": 0
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "resp_0ea2aa6207e49c18006a9963e0e8a08194b8a0f98e9663cf02"
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "agent_id": "6e973b68-abb6-4470-b341-2f2377da93dd",
+    "caller_id": "browser-user",
+    "checkpoint_ns": "finalize:87fae680-5e5c-5116-b439-86b08db059a8",
+    "langgraph_checkpoint_ns": "finalize:87fae680-5e5c-5116-b439-86b08db059a8",
+    "langgraph_node": "finalize",
+    "langgraph_path": [
+      "__pregel_pull",
+      "finalize"
+    ],
+    "langgraph_step": 31,
+    "langgraph_triggers": [
+      "branch:to:finalize"
+    ],
+    "ls_integration": "langgraph",
+    "ls_run_depth": 1,
+    "prompt_tag": "charming-challenger",
+    "session_id": "session-ad12b155-d6ac-4605-bbd1-c5a97dc8441f",
+    "thread_id": "thread-ad12b155-d6ac-4605-bbd1-c5a97dc8441f",
+    "turn_id": "9fb3b28f-21ef-473a-ab4a-f3d700ebc4ab"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "sipgate GmbH",
+      "id": "ab309f54-7409-4bd5-be94-58201914bcf7"
+    },
+    "workspace": {
+      "name": "AI Agents",
+      "id": "9714a856-400a-4b8f-aa73-549935b14115"
+    },
+    "tracing_project": {
+      "id": "e2f3eaa4-a424-46d9-88c7-03befec3cff9",
+      "name": "ai-agents-playground-live"
+    }
+  }
+}

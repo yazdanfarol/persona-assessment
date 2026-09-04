@@ -1,0 +1,1252 @@
+{
+  "inputs": {
+    "messages": [
+      {
+        "id": [
+          "langchain_core",
+          "messages",
+          "HumanMessage"
+        ],
+        "kwargs": {
+          "additional_kwargs": {},
+          "content": "Hier ist eine große Aufregung. Äh, wir sind im Rauchbrand im Hof und es qualmt viel mehr als immer und, äh, jemand hat sich am Arm verbrannt.",
+          "id": "1c00ee47-30df-4a04-8636-2944bf293581",
+          "response_metadata": {}
+        },
+        "lc": 1,
+        "type": "constructor"
+      }
+    ]
+  },
+  "outputs": {
+    "messages": [
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": "Hallo und willkommen bei Surfers Pottery. Mein Name ist Klara, ich bin die digitale Assistenz. Wie kann ich Ihnen helfen?",
+          "tool_calls": [],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "id": "b24af79a-5aad-4205-9b76-4376a02c6a89"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "HumanMessage"
+        ],
+        "kwargs": {
+          "content": "Hier ist eine große Aufregung. Äh, wir sind im Rauchbrand im Hof und es qualmt viel mehr als immer und, äh, jemand hat sich am Arm verbrannt.",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "id": "1c00ee47-30df-4a04-8636-2944bf293581"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": "[reassuring] Ich kümmere mich um die sofortige Notfallweiterleitung",
+          "tool_calls": [
+            {
+              "name": "load_skill",
+              "args": {
+                "interim": "[understanding] Ich kümmere mich um die akute Situation.",
+                "skillId": "forwarding"
+              },
+              "id": "call_s6DkX9OMebwbwnQfSmPN0CHb",
+              "type": "tool_call"
+            }
+          ],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {
+            "__openai_function_call_ids__": {
+              "call_s6DkX9OMebwbwnQfSmPN0CHb": "fc_021f4dbb7956c663006a9962cb88dc8194ac7393fc890f2155"
+            }
+          },
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_021f4dbb7956c663006a9962cae1d88194b4e66b7ab77e6068",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437194,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437195,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 333,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "fc_021f4dbb7956c663006a9962cb88dc8194ac7393fc890f2155",
+                "type": "function_call",
+                "status": "completed",
+                "arguments": "{\"interim\":\"[understanding] Ich kümmere mich um die akute Situation.\" ,\"skillId\":\"forwarding\"}",
+                "call_id": "call_s6DkX9OMebwbwnQfSmPN0CHb",
+                "name": "load_skill"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [
+              {
+                "type": "function",
+                "description": "Load the full instructions and tools for a skill.",
+                "name": "load_skill",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "skillId": {
+                      "type": "string",
+                      "enum": [
+                        "knowledge-base",
+                        "callback",
+                        "forwarding",
+                        "calendar"
+                      ],
+                      "description": "ID of the skill to load."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "skillId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "End the conversation with the user.",
+                "name": "end_conversation",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 2519,
+              "input_tokens_details": {
+                "cache_write_tokens": 2516,
+                "cached_tokens": 0
+              },
+              "output_tokens": 39,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 2558
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 2519,
+            "output_tokens": 39,
+            "total_tokens": 2558,
+            "input_token_details": {
+              "cache_read": 0
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "6c283175-73ab-45c4-8107-e5bbae86ed42"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "status": "success",
+          "name": "load_skill",
+          "content": "You have loaded the skill \"Forwarding\" (forwarding). Follow these instructions:\n\n# Playbook skill\n\nYou are a playbook skill in a phone assistant graph.\n\nYour job is to collect the information required by the active playbook and\nthen complete the configured action.\n\n## Runtime configuration\n\n### Available topics\n\n```yaml\n- id: c88262ab-9a77-4411-a3cd-42ac41173c0e\n  title: Notfallweiterleitung\n  description: Wenn das Anliegen akut, zeitkritisch oder ein Notfall ist und sofort bearbeitet werden muss.\n```\n\n### Completion action\n\n```yaml\ntype: transfer_to_phone_number\ninstruction: Resolve the destination phone number with an appropriate available tool. For a selected forwarding topic, use get_phone_number_for_topic. After receiving explicit consent, transfer the caller with transfer_to_phone_number using the resolved phone number.\n```\n\n## General rules\n\n- Stay inside the playbook task.\n- Do not recommend other communication channels.\n- Do not schedule appointments.\n\n## Topic and playbook rules\n\n- The latest `playbook_topic_selected` tool result is the active playbook.\n- If `topics` contains entries and no topic has been selected yet, call `select_playbook_topic` before asking topic-specific questions.\n- Use `mode: \"initial_selection\"` for the first topic selection.\n- If the caller changes topic later, call `select_playbook_topic` again with `mode: \"topic_switch\"` and a short reason.\n- There is no progress tool. Infer progress from the conversation and tool results.\n\n## Task collection rules\n\n- Each playbook task describes one detail or action to complete.\n- Collect required details one at a time.\n- If a detail is already known, use it and move on.\n- For email addresses, resolve obvious acoustic ambiguity when the caller's name or a common domain makes the correction clear.\n- Repeat the full email address for verification when needed.\n- Keep any summary focused on details that matter for the completion action.\n\nThe following tools are now available: select_playbook_topic, get_phone_number_for_topic, transfer_to_phone_number.",
+          "tool_call_id": "call_s6DkX9OMebwbwnQfSmPN0CHb",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "id": "a0f87717-2c9c-4964-9ac3-1cfde946a706"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": [],
+          "tool_calls": [
+            {
+              "name": "select_playbook_topic",
+              "args": {
+                "interim": "[reassuring] Ich leite die dringende Hilfe jetzt weiter.",
+                "topicId": "c88262ab-9a77-4411-a3cd-42ac41173c0e",
+                "mode": "initial_selection",
+                "reason": "Akute Rauchentwicklung und Verbrennung im Hof"
+              },
+              "id": "call_ehKjIbO3Mn7IqjKYVvc2Q6wF",
+              "type": "tool_call"
+            }
+          ],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {
+            "__openai_function_call_ids__": {
+              "call_ehKjIbO3Mn7IqjKYVvc2Q6wF": "fc_021f4dbb7956c663006a9962ccc2e0819493a047f908cb62ef"
+            }
+          },
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_021f4dbb7956c663006a9962cc271c8194a9e342a2bdda2021",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437196,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437197,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 2475,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "fc_021f4dbb7956c663006a9962ccc2e0819493a047f908cb62ef",
+                "type": "function_call",
+                "status": "completed",
+                "arguments": "{\"interim\":\"[reassuring] Ich leite die dringende Hilfe jetzt weiter.\",\"topicId\":\"c88262ab-9a77-4411-a3cd-42ac41173c0e\",\"mode\":\"initial_selection\",\"reason\":\"Akute Rauchentwicklung und Verbrennung im Hof\"}",
+                "call_id": "call_ehKjIbO3Mn7IqjKYVvc2Q6wF",
+                "name": "select_playbook_topic"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [
+              {
+                "type": "function",
+                "description": "Load the full instructions and tools for a skill.",
+                "name": "load_skill",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "skillId": {
+                      "type": "string",
+                      "enum": [
+                        "knowledge-base",
+                        "callback",
+                        "calendar"
+                      ],
+                      "description": "ID of the skill to load."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "skillId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "End the conversation with the user.",
+                "name": "end_conversation",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Resolve and return the valid international transfer destination phone number for a topic.",
+                "name": "get_phone_number_for_topic",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "topicId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Stable ID of the selected topic."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "topicId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Select the active playbook topic and load its playbook tasks.",
+                "name": "select_playbook_topic",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "topicId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Stable ID of the selected topic."
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "initial_selection",
+                        "topic_switch"
+                      ],
+                      "description": "Whether this is the first topic selection of the conversation (initial_selection) or a change away from a previously selected topic (topic_switch)."
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Reason for the topic selection."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "topicId",
+                    "mode",
+                    "reason"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Transfer the user to the specified phone number.",
+                "name": "transfer_to_phone_number",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "phoneNumber": {
+                      "type": "string",
+                      "description": "The destination phone number for the transfer, in international format. For example: +491234567890."
+                    }
+                  },
+                  "required": [
+                    "phoneNumber"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 3816,
+              "input_tokens_details": {
+                "cache_write_tokens": 3813,
+                "cached_tokens": 0
+              },
+              "output_tokens": 77,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 3893
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 3816,
+            "output_tokens": 77,
+            "total_tokens": 3893,
+            "input_token_details": {
+              "cache_read": 0
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "322caaa2-ac88-40b8-bd12-69fe1177083d"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "status": "success",
+          "name": "select_playbook_topic",
+          "content": "{\"event\":\"playbook_topic_selected\",\"topicId\":\"c88262ab-9a77-4411-a3cd-42ac41173c0e\",\"mode\":\"initial_selection\",\"reason\":\"Akute Rauchentwicklung und Verbrennung im Hof\",\"topic\":{\"id\":\"c88262ab-9a77-4411-a3cd-42ac41173c0e\",\"title\":\"Notfallweiterleitung\",\"description\":\"Wenn das Anliegen akut, zeitkritisch oder ein Notfall ist und sofort bearbeitet werden muss.\"},\"playbook\":{\"title\":\"Notfallweiterleitung\",\"description\":\"Wenn das Anliegen akut, zeitkritisch oder ein Notfall ist und sofort bearbeitet werden muss.\",\"tasks\":[{\"id\":\"526b2a7a-2fb0-4b10-9087-32946d98008c\",\"title\":\"Name\",\"description\":\"Frage nach dem vollständigen Namen der anrufenden Person.\",\"includeInSummary\":true},{\"id\":\"bc35c00d-f550-45b9-9da8-c35d4f77fa05\",\"title\":\"Telefonnummer\",\"description\":\"Frage, ob, falls erforderlich, auf die Nummer des Anrufenden zurückgerufen werden kann, oder frage nach einer alternativen Nummer.\",\"includeInSummary\":true},{\"id\":\"c5e143dd-6a72-4706-ab09-1de89804a658\",\"title\":\"Nächsten Schritt ankündigen\",\"description\":\"Kündige an, dass du weiterleitest. Erkläre, dass für den Fall, dass niemand drangeht, die Daten aufgenommen wurden und sich schnellstmöglich jemand meldet.\",\"includeInSummary\":false}]}}",
+          "tool_call_id": "call_ehKjIbO3Mn7IqjKYVvc2Q6wF",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "id": "b680fe28-7f00-4d94-9878-b5ad2db7d7dc"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": [],
+          "tool_calls": [
+            {
+              "name": "get_phone_number_for_topic",
+              "args": {
+                "interim": "[professional] Einen Moment, ich stelle die Notfallverbindung her.",
+                "topicId": "c88262ab-9a77-4411-a3cd-42ac41173c0e"
+              },
+              "id": "call_QoSOCLjBRiZidyaHYYdlcnXa",
+              "type": "tool_call"
+            }
+          ],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {
+            "__openai_function_call_ids__": {
+              "call_QoSOCLjBRiZidyaHYYdlcnXa": "fc_021f4dbb7956c663006a9962ce20dc81948773feff53e897b9"
+            }
+          },
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_021f4dbb7956c663006a9962cd85408194ad665cfa8e2411f8",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437197,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437198,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 3798,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "fc_021f4dbb7956c663006a9962ce20dc81948773feff53e897b9",
+                "type": "function_call",
+                "status": "completed",
+                "arguments": "{\"interim\":\"[professional] Einen Moment, ich stelle die Notfallverbindung her.\",\"topicId\":\"c88262ab-9a77-4411-a3cd-42ac41173c0e\"}",
+                "call_id": "call_QoSOCLjBRiZidyaHYYdlcnXa",
+                "name": "get_phone_number_for_topic"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [
+              {
+                "type": "function",
+                "description": "Load the full instructions and tools for a skill.",
+                "name": "load_skill",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "skillId": {
+                      "type": "string",
+                      "enum": [
+                        "knowledge-base",
+                        "callback",
+                        "calendar"
+                      ],
+                      "description": "ID of the skill to load."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "skillId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "End the conversation with the user.",
+                "name": "end_conversation",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Resolve and return the valid international transfer destination phone number for a topic.",
+                "name": "get_phone_number_for_topic",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "topicId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Stable ID of the selected topic."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "topicId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Select the active playbook topic and load its playbook tasks.",
+                "name": "select_playbook_topic",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "topicId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Stable ID of the selected topic."
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "initial_selection",
+                        "topic_switch"
+                      ],
+                      "description": "Whether this is the first topic selection of the conversation (initial_selection) or a change away from a previously selected topic (topic_switch)."
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Reason for the topic selection."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "topicId",
+                    "mode",
+                    "reason"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Transfer the user to the specified phone number.",
+                "name": "transfer_to_phone_number",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "phoneNumber": {
+                      "type": "string",
+                      "description": "The destination phone number for the transfer, in international format. For example: +491234567890."
+                    }
+                  },
+                  "required": [
+                    "phoneNumber"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 4281,
+              "input_tokens_details": {
+                "cache_write_tokens": 4278,
+                "cached_tokens": 0
+              },
+              "output_tokens": 61,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 4342
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 4281,
+            "output_tokens": 61,
+            "total_tokens": 4342,
+            "input_token_details": {
+              "cache_read": 0
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "cd354327-177a-4ca4-acea-1b9723e3dcdb"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "status": "success",
+          "name": "get_phone_number_for_topic",
+          "content": "+4921187971432",
+          "tool_call_id": "call_QoSOCLjBRiZidyaHYYdlcnXa",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "id": "b5bd2add-bf7c-4d54-93e3-49bb3c2196eb"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain_core",
+          "messages",
+          "AIMessage"
+        ],
+        "kwargs": {
+          "content": [
+            {
+              "type": "text",
+              "text": "[reassuring] Bitte verlassen Sie den verrauchten Bereich und rufen Sie sofort die einhundertzwölf, besonders wegen der Verbrennung. Soll ich Sie jetzt an unsere Notfallverbindung weiterleiten?",
+              "index": 0
+            }
+          ],
+          "tool_calls": [],
+          "invalid_tool_calls": [],
+          "additional_kwargs": {},
+          "response_metadata": {
+            "model_provider": "openai",
+            "id": "resp_021f4dbb7956c663006a9962cebc048194b9fea691f2d2b4bc",
+            "model_name": "gpt-5.6-luna",
+            "model": "gpt-5.6-lunagpt-5.6-luna",
+            "object": "response",
+            "created_at": 1788437198,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1788437199,
+            "content_filters": [
+              {
+                "blocked": false,
+                "source_type": "prompt",
+                "content_filter_raw": [],
+                "content_filter_results": {},
+                "content_filter_offsets": {
+                  "start_offset": 0,
+                  "end_offset": 3845,
+                  "check_offset": 0
+                }
+              }
+            ],
+            "error": null,
+            "frequency_penalty": 0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "moderation": null,
+            "output": [
+              {
+                "id": "msg_021f4dbb7956c663006a9962cf646c8194a25c604c30fb6fda",
+                "type": "message",
+                "status": "completed",
+                "content": [
+                  {
+                    "type": "output_text",
+                    "annotations": [],
+                    "logprobs": [],
+                    "text": "[reassuring] Bitte verlassen Sie den verrauchten Bereich und rufen Sie sofort die einhundertzwölf, besonders wegen der Verbrennung. Soll ich Sie jetzt an unsere Notfallverbindung weiterleiten?"
+                  }
+                ],
+                "phase": "final_answer",
+                "role": "assistant"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "none",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [
+              {
+                "type": "function",
+                "description": "Load the full instructions and tools for a skill.",
+                "name": "load_skill",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "skillId": {
+                      "type": "string",
+                      "enum": [
+                        "knowledge-base",
+                        "callback",
+                        "calendar"
+                      ],
+                      "description": "ID of the skill to load."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "skillId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "End the conversation with the user.",
+                "name": "end_conversation",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Resolve and return the valid international transfer destination phone number for a topic.",
+                "name": "get_phone_number_for_topic",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "topicId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Stable ID of the selected topic."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "topicId"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Select the active playbook topic and load its playbook tasks.",
+                "name": "select_playbook_topic",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "speech": {
+                      "type": "object",
+                      "properties": {
+                        "interim": {
+                          "type": "string",
+                          "description": "If no progress update has been spoken to the caller yet in this turn, Case 1 applies; otherwise Case 2 applies. Updates already spoken are visible as your own assistant messages in the conversation, or in the list provided with this instruction.\n\nCase 1: No previous update: This is the first progress message the caller hears, so it must stand on its own. Do not claim a result, ask a question, or promise a completion time. Describe the overall ongoing work for this model turn rather than naming internal tools or individual technical operations. A short progress update prepared for later playback while the requested operation is already in progress. Use 5-7 words.\n\nCase 2: One or more previous updates have already been spoken in this turn: The caller has already heard the previous updates. Your only job: acknowledge the delay or ask for a little patience. Do not describe the process. Use 3-5 words. Do not repeat or rephrase the previous waiting phrases. Do not claim a result, ask a question, or promise a completion time. Examples: \"Das dauert länger als gedacht\", \"Einen Moment noch bitte\".\n\n## Audio Tags\n\nAudio tags are enabled for this progress update. Prefix the update with exactly one tag from the\nwhitelist in the general audio-tag rules, and place it at the very beginning. Do not invent tags\noutside that whitelist.\n\nThe tag does not count toward the word limit.\n\nJudge repetition by the spoken words alone; the same words with a different tag are still a repeat.\n\nExample:\n\n[reassuring] Das dauert etwas länger."
+                        }
+                      },
+                      "required": [
+                        "interim"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "topicId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Stable ID of the selected topic."
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "initial_selection",
+                        "topic_switch"
+                      ],
+                      "description": "Whether this is the first topic selection of the conversation (initial_selection) or a change away from a previously selected topic (topic_switch)."
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Reason for the topic selection."
+                    }
+                  },
+                  "required": [
+                    "speech",
+                    "topicId",
+                    "mode",
+                    "reason"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              },
+              {
+                "type": "function",
+                "description": "Transfer the user to the specified phone number.",
+                "name": "transfer_to_phone_number",
+                "output_schema": null,
+                "parameters": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "properties": {
+                    "phoneNumber": {
+                      "type": "string",
+                      "description": "The destination phone number for the transfer, in international format. For example: +491234567890."
+                    }
+                  },
+                  "required": [
+                    "phoneNumber"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": false
+              }
+            ],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 4362,
+              "input_tokens_details": {
+                "cache_write_tokens": 81,
+                "cached_tokens": 4278
+              },
+              "output_tokens": 49,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 4411
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage_metadata": {
+            "input_tokens": 4362,
+            "output_tokens": 49,
+            "total_tokens": 4411,
+            "input_token_details": {
+              "cache_read": 4278
+            },
+            "output_token_details": {
+              "reasoning": 0
+            }
+          },
+          "id": "bf09bb97-e522-4628-8561-3dc9fee662ce"
+        }
+      }
+    ],
+    "interrupted": false,
+    "iterationCount": 3,
+    "loadedSkillIds": [
+      "forwarding"
+    ],
+    "spokenSegments": [
+      {
+        "segmentId": "c050142c-1981-4bb8-b662-476c2e06695f:seg:3",
+        "turnId": "c050142c-1981-4bb8-b662-476c2e06695f",
+        "iteration": 3,
+        "text": "[reassuring] Bitte verlassen Sie den verrauchten Bereich und rufen Sie sofort die einhundertzwölf, besonders wegen der Verbrennung. Soll ich Sie jetzt an unsere Notfallverbindung weiterleiten?"
+      }
+    ],
+    "externalToolNames": [],
+    "failureReason": null
+  },
+  "metadata": {
+    "agent_id": "6e973b68-abb6-4470-b341-2f2377da93dd",
+    "caller_id": "browser-user",
+    "ls_integration": "langgraph",
+    "ls_run_depth": 0,
+    "prompt_tag": "calm-authority",
+    "session_id": "session-b120dbb5-5947-496a-85fa-9b9bded14e80",
+    "thread_id": "thread-b120dbb5-5947-496a-85fa-9b9bded14e80",
+    "turn_id": "c050142c-1981-4bb8-b662-476c2e06695f"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "sipgate GmbH",
+      "id": "ab309f54-7409-4bd5-be94-58201914bcf7"
+    },
+    "workspace": {
+      "name": "AI Agents",
+      "id": "9714a856-400a-4b8f-aa73-549935b14115"
+    },
+    "tracing_project": {
+      "id": "e2f3eaa4-a424-46d9-88c7-03befec3cff9",
+      "name": "ai-agents-playground-live"
+    }
+  }
+}
