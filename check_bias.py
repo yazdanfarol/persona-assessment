@@ -108,8 +108,8 @@ def zaehle_restating(agent_turn, vorheriger_kunden_turn):
     """Grobe Heuristik: Wortüberlappung zwischen Agent-Antwort und Kundenaussage"""
     doc_agent = nlp(agent_turn.lower())
     doc_kunde = nlp(vorheriger_kunden_turn.lower())
-    kunden_lemmas = {t.lemma_ for t in doc_kunde if t.pos_ in ("NOUN", "VERB", "PROPN")}
-    agent_lemmas = {t.lemma_ for t in doc_agent if t.pos_ in ("NOUN", "VERB", "PROPN")}
+    kunden_lemmas = {t.lemma_ for t in doc_kunde if t.pos_ in ("NOUN", "VERB", "PROPN", "ADJ")}
+    agent_lemmas = {t.lemma_ for t in doc_agent if t.pos_ in ("NOUN", "VERB", "PROPN", "ADJ")}
     if not kunden_lemmas:
         return 0
     ueberlappung = len(kunden_lemmas & agent_lemmas) / len(kunden_lemmas)
