@@ -3,6 +3,8 @@ import numpy as np
 from pathlib import Path
 import json
 
+import re
+import spacy
 # Ordinalskala in Zahlen übersetzen
 skala = {
     "sehr niedrig": 1, "niedrig": 2, "niedrig-mittel": 2.5,
@@ -27,22 +29,41 @@ ziel_profile = {
 }
 ziel_df = pd.DataFrame(ziel_profile).T  # Zeilen = Dimensionen, Spalten = Personas
 
-import re
-import spacy
 
 nlp = spacy.load("de_dep_news_trf")
 
 # --- Wortlisten (ausbaufähig, aus deinen eigenen Transkripten kalibrieren) ---
-FUELLWOERTER = ["also", "genau", "grundsätzlich", "ne", "halt", "sozusagen", "verstehe"]
+FUELLWOERTER = [
+    "also", "genau", "grundsätzlich", "halt", "quasi", "sozusagen",
+     "ne", "halt",  "verstehe",
+    "eigentlich", "irgendwie", "praktisch", "im prinzip", "sag ich mal",
+]
 HOEFLICHKEIT_MARKER = ["bitte", "gerne", "dürfte", "möchten sie", "wäre es möglich", "danke"]
 BEGRUENDUNG_MARKER = ["weil", "da ", "damit ", "denn ", "aus diesem grund", "der grund"]
 SLANG_MARKER = ["krass", "cool", "mega", "easy", "läuft", "alles klar", "kein ding"]
-EMPATHIE_MARKER = ["verstehe", "das tut mir leid", "keine sorge", "kann ich nachvollziehen", "sie müssen sich keine sorgen"]
-CTA_MARKER = ["soll ich", "möchten sie, dass ich", "darf ich das gleich", "ich empfehle ihnen zusätzlich"]
+EMPATHIE_PATTERNS = [
+    r"\b(das|es)?\s?tut mir (wirklich\s)?leid\b",
+    r"\bverstehe\b",
+    r"\bkann ich (gut )?nachvollziehen\b",
+    r"\bkeine sorge\b",
+    r"\bsie müssen sich keine sorgen\b",
+]
 
-def zaehle_marker(text, marker_liste):
-    text_l = text.lower()
-    return sum(text_l.count(m) for m in marker_liste)
+CTA_PATTERNS = [
+    r"\bsoll ich (das |ihnen |es )?(gleich |direkt )?(für sie )?(buchen|einplanen|eintragen|notieren)",
+    r"\bmöchten sie,?\s?dass (ich|wir)\b",
+    r"\bdarf ich (das |es )?(gleich |direkt )?",
+    r"\bich empfehle ihnen (zusätzlich|auch|dazu)\b",
+    r"\bkann ich (ihnen )?noch\b.*\banbieten\b",
+]
+
+def zaehle_marker(text, muster_liste, ist_regex=False):
+    text_l = text.strip().lower()
+    treffer = 0
+    for m in muster_liste:
+        pattern = m if ist_regex else r"\b" + re.escape(m) + r"\b"
+        treffer += len(re.findall(pattern, text_l))
+    return treffer
 
 def analysiere_turn(text):
     doc = nlp(text)
@@ -54,8 +75,8 @@ def analysiere_turn(text):
         "hoeflichkeit": zaehle_marker(text, HOEFLICHKEIT_MARKER),
         "begruendung": zaehle_marker(text, BEGRUENDUNG_MARKER),
         "slang": zaehle_marker(text, SLANG_MARKER),
-        "empathie": zaehle_marker(text, EMPATHIE_MARKER),
-        "cta": zaehle_marker(text, CTA_MARKER),
+        "empathie": zaehle_marker(text, EMPATHIE_PATTERNS, ist_regex=True),
+        "cta": zaehle_marker(text, CTA_PATTERNS, ist_regex=True),
         "fragen": text.count("?"),
         "ausrufe": text.count("!"),
         "wortzahl": n_woerter,
@@ -187,5 +208,5 @@ df_persona = df.groupby("persona").mean(numeric_only=True)
 numeric_cols = df_persona.select_dtypes(include="number").columns
 df_persona[numeric_cols] = df_persona[numeric_cols].round(2)
 
-df_persona.to_csv("results/2026_09_04.tsv", sep="\t", index=True)
+df_persona.to_csv("results/2026_09_07.tsv", sep="\t", index=True)
 print(df_persona)
